@@ -2,3 +2,5 @@ Flask
 Gunicorn
 numpy
 pandas
+scipy
+matplotlib
