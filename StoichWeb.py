@@ -136,7 +136,7 @@ def login():
         k_factor = kfacsfile, OByStoich = OByStoich, Result = FinalReport)
         #return redirect(url_for("user", usr = phase))
     else:
-        Stoich2 = np.genfromtxt('ConfigData/Stoich Silicates.csv', dtype=None,
+        Stoich2 = np.genfromtxt('ConfigData/stoich Silicates.csv', dtype=None,
                                      comments='#', delimiter=',', skip_header=1, converters={1: lambda s: float(s)})
         Stoich3 = []
         for i in range(len(Stoich2)):
