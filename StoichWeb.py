@@ -21,8 +21,7 @@ import CountsToQuantWeb
 import PhaseFit
 
 # Stoich = pd.read_csv("ConfigData/stoich Silicates.csv")
-Stoich = np.genfromtxt('ConfigData/stoich Silicates.csv', dtype=None,
-                                     comments='#', delimiter=',', skip_header=1, converters={1: lambda s: float(s)})
+Stoich = np.genfromtxt('ConfigData/stoich Silicates.csv', dtype=None, comments='#', delimiter=',', skip_header=1, converters={1: lambda s: float(s)})
 
 
 # initiate flask app
@@ -36,13 +35,7 @@ def login():
         Counts = np.zeros(118)
         charge = {}
 
-        element = ["H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P",
-"S","Cl","Ar","K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se",
-"Br","Kr","Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In","Sn","Sb","Te","I",
-"Xe","Cs","Ba","La","Ce","Pr","Nd","Pm","Sm","Eu","Gd","Tb","Dy","Ho","Er","Tm","Yb","Lu",
-"Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg","Tl","Pb","Bi","Po","At","Rn","Fr","Ra","Ac",
-"Th","Pa","U","Np","Pu","Am","Cm","Bk","Cf","Es","Fm","Md","No","Lr","Rf","Db","Sg","Bh",
-"Hs","Mt","Ds","Rg","Cn","Uut","Fl","Uup","Lv","Uus","Uuo"]
+        element = ["H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr","Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In","Sn","Sb","Te","I","Xe","Cs","Ba","La","Ce","Pr","Nd","Pm","Sm","Eu","Gd","Tb","Dy","Ho","Er","Tm","Yb","Lu","Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg","Tl","Pb","Bi","Po","At","Rn","Fr","Ra","Ac","Th","Pa","U","Np","Pu","Am","Cm","Bk","Cf","Es","Fm","Md","No","Lr","Rf","Db","Sg","Bh","Hs","Mt","Ds","Rg","Cn","Uut","Fl","Uup","Lv","Uus","Uuo"]
         for i in range(len(element)):
             Counts[i] = request.form[element[i]+"1"]
         InputDat = OrderedDict(list(zip(element, Counts)))
@@ -89,9 +82,7 @@ def login():
             OByStoich = None
 
         # Stuff the user entered data into a black box and get out At%, Wt% results.
-        Quant = CountsToQuantWeb.GetAbundancesFromCounts(Counts, kfacsfile=kfacsfile, InputType= "Counts", 
-            ArbitraryAbsorptionCorrection=DetectorFile, AbsorptionCorrection=AbsorptionCorrection,
-                                                         Takeoff=Takeoff, OByStoichiometry=OByStoich)
+        Quant = CountsToQuantWeb.GetAbundancesFromCounts(Counts, kfacsfile=kfacsfile, InputType= "Counts", ArbitraryAbsorptionCorrection=DetectorFile, AbsorptionCorrection=AbsorptionCorrection, Takeoff=Takeoff, OByStoichiometry=OByStoich)
                                                         
         QuantNumbers = [a[1] for a in list(Quant.items())]
         AtPct, WtPct, OxWtPct, kfactors = list(zip(*QuantNumbers))
@@ -104,11 +95,7 @@ def login():
         # print(Quant)
         # print(AtPct, WtPct, OxWtPct, kfactors)
 
-        ReportStr2 = ReportResults.FormatQuantResults(Quant, ArbitraryAbsorptionCorrection=DetectorFile,
-                                                     AbsorptionCorrection=AbsorptionCorrection,
-                                                     Takeoff=Takeoff,
-                                                     OByStoichiometry=OByStoich,
-                                                     kFactors=kfacsfile)
+        ReportStr2 = ReportResults.FormatQuantResults(Quant, ArbitraryAbsorptionCorrection=DetectorFile, AbsorptionCorrection=AbsorptionCorrection,Takeoff=Takeoff,OByStoichiometry=OByStoich,kFactors=kfacsfile)
         #print(ReportStr2)
 
         """ DO CUSTOM PHASE ANALYSES """
@@ -131,13 +118,10 @@ def login():
         FinalReport = FinalReport.replace("\n", "<br>")
         
         
-        return render_template('result.html', charge=charge, mylist=Counts, 
-        absorption=DetectorFile, degree = Takeoff, density = AbsorptionCorrection, 
-        k_factor = kfacsfile, OByStoich = OByStoich, Result = FinalReport)
+        return render_template('result.html', charge=charge, mylist=Counts, absorption=DetectorFile, degree = Takeoff, density = AbsorptionCorrection, k_factor = kfacsfile, OByStoich = OByStoich, Result = FinalReport)
         #return redirect(url_for("user", usr = phase))
     else:
-        Stoich2 = np.genfromtxt('ConfigData/stoich Silicates.csv', dtype=None,
-                                     comments='#', delimiter=',', skip_header=1, converters={1: lambda s: float(s)})
+        Stoich2 = np.genfromtxt('ConfigData/stoich Silicates.csv', dtype=None, comments='#', delimiter=',', skip_header=1, converters={1: lambda s: float(s)})
         Stoich3 = []
         for i in range(len(Stoich2)):
             Stoich3.append(Stoich2[i][1])
