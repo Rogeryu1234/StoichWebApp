@@ -28,12 +28,8 @@ Stoich = np.genfromtxt('ConfigData/stoich Silicates.csv', dtype=None,
 # initiate flask app
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 # Everything in here.
-@app.route('/login', methods = ["POST","GET"])
+@app.route('/', methods = ["POST","GET"])
 def login():
     if request.method == "POST":
         # print("False")
