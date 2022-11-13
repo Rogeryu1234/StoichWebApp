@@ -1,0 +1,23 @@
+{% extends "login.html" %}
+
+{% block result %}
+Counts:
+{% for a in mylist %}
+        {{a}}
+    {% endfor %}
+<br>
+Charge:
+{% for a,b in charge.items() %}
+        {{a}}:{{b}}
+    {% endfor %}
+<h1>Arbitrary Absorption: {{absorption}}</h1>
+<h1>Absorption Correction: {{density}}</h1>
+<h1>Takeoff: {{degree}}</h1>
+<h1>k-factor: {{k_factor}}</h1>
+<h1>OByStoich: {{OByStoich}}</h1>
+{% endblock %}
+
+{% block content3 %}
+    <h2>Result</h2>
+    {{ Result | safe}}
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <form method="post" action="" onSubmit="return saveComment();">
+        <input type="text" name="cmtx_comment" id="cmtx_comment" value="" />
+        <input type="submit" value="Save" />
+    </form>
+
+    <script>
+        document.getElementById("cmtx_comment").value = localStorage.getItem("comment");
+
+function saveComment() {
+    var comment = document.getElementById("cmtx_comment").value;
+
+    localStorage.setItem("comment", comment);
+
+    location.reload();
+    return false;
+    //return true;
+}
+    </script>
+
+</body>
+</html>

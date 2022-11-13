@@ -1,0 +1,92 @@
+body {
+    color: blueviolet;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+table input {
+    width: 80px;
+}
+
+p input {
+  width: 280px;
+  text-align: center;
+}
+
+select {
+  width: 250px;
+}
+input {
+    width: 60px;
+}
+td {
+    width: 200px;
+    text-align: center;
+}
+th {
+    text-align: center;
+}
+
+body {
+  background-color: white;
+}
+
+#box1 {
+  background-color: blue;
+  padding: 10px;
+  border: 5px solid black;
+  width: 300px;
+  height: 600px;
+  margin-top: 10px;
+  overflow: auto;
+  margin-right: 10px;
+}
+
+#box2 {
+    background-color: blueviolet;
+    padding: 10px;
+    border: 5px solid black;
+    width: 500px;
+    height: 600px;
+    margin-top: 10px;
+    overflow: auto;
+    margin-right: 10px;
+    margin-bottom: 100px;
+    clear: left;
+    position: absolute;
+    right: 600px;
+    top: 68px;
+  }
+
+  #box3 {
+    background-color: purple;
+    padding: 10px;
+    border: 5px solid black;
+    width: 500px;
+    height: 800px;
+    margin-top: 10px;
+    overflow: auto;
+    margin-right: 10px;
+    margin-bottom: 100px;
+    position: absolute;
+    right: 80px;
+    top: 68px;
+  }
+
+
+#content {
+  background-color: #90EE90; /* green */
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+#t {
+    text-align: center;
+    color: orchid;
+}
+
