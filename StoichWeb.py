@@ -122,18 +122,19 @@ def login():
                 # OByStoich = request.form["k-value2"]
             else:
                 OByStoich = None
-
+            print("djksljfaklsjfkldsjakfldjsaklfjdskalfjklasjfdklasjfklsakljklskljsk")
+            print(Counts)
+            print(kfacsfile)
+            print(DetectorFile)
+            print(AbsorptionCorrection)
+            print(Takeoff)
+            print(OByStoich)
             # Stuff the user entered data into a black box and get out At%, Wt% results.
             Quant = CountsToQuantWeb.GetAbundancesFromCounts(Counts, kfacsfile=kfacsfile, InputType= inputType, ArbitraryAbsorptionCorrection=DetectorFile, AbsorptionCorrection=AbsorptionCorrection, Takeoff=Takeoff, OByStoichiometry=OByStoich)
                                                             
             QuantNumbers = [a[1] for a in list(Quant.items())]
             AtPct, WtPct, OxWtPct, kfactors = list(zip(*QuantNumbers))
-            # print(Counts)
-            # print(kfacsfile)
-            # print(DetectorFile)
-            # print(AbsorptionCorrection)
-            # print(Takeoff)
-            # print(OByStoich)
+            
             # print(Quant)
             # print(AtPct, WtPct, OxWtPct, kfactors)
 

@@ -58,7 +58,7 @@
     Phase Analysis: 
     <br>
     <input type="checkbox" id="phaseAnalysis" name="phaseAnalysis"> 
-    <select name="phase" id="cars">
+    <select name="phase" id="phase">
       <option value="Feldspar">Feldspar</option>
       <option value="QMin Algorithm">QMin Algorithm</option>
       <option value="Sulfide">Sulfide</option>
@@ -81,7 +81,7 @@
 <br>
 
 <input type="checkbox" id="arbitraryAnalysis" name="arbitraryAnalysis">
-<select name="arbitrary" id="cars">
+<select name="arbitrary" id="arbitrary">
   <option value="Titan Detector Window">Titan Detector Window</option>
 </select>
 </label>
@@ -106,13 +106,15 @@
     <select name="k-value" id="k-value">
         <option value="Titan 60 keV">Titan 60 keV</option>
         <option value="Titan 80 keV manual O">Titan 80 keV manual O</option>
-        <option value="CM200 200keV">CM200 200keV</option>
-        <option value="Titan 200keV">Titan 200keV</option>
-        <option value="Titan 80keV">Titan 80keV</option>
-        <option value="Titan 300keV">Titan 300keV</option>
+        <option value="CM200 200 keV">CM200 200 keV</option>
+        <option value="Titan 200 keV">Titan 200 keV</option>
+        <option value="Titan 80 keV">Titan 80 keV</option>
+        <option value="Titan 300 keV">Titan 300 keV</option>
       </select>
     </label>
 </div>
+
+
 
 
 <div>
@@ -210,24 +212,32 @@
     var input = document.getElementById("Counts").value;
     localStorage.setItem("inputType", input);
     localStorage.setItem("WhichType", 1);
+    localStorage.setItem("k-factor-box", 1); // Un-Disable
+    saveAll();
     location.reload();
   }
   function Att() {
     var input = document.getElementById("At").value;
     localStorage.setItem("inputType", input)
     localStorage.setItem("WhichType", 2);
+    localStorage.setItem("k-factor-box", 0); // Disable
+    saveAll();
     location.reload();
   }
   function Wt() {
     var input = document.getElementById("Weight").value;
     localStorage.setItem("inputType", input)
     localStorage.setItem("WhichType", 3);
+    localStorage.setItem("k-factor-box", 0); // Disable
+    saveAll();
     location.reload();
   }
   function OxWt() {
     var input = document.getElementById("Ox").value;
     localStorage.setItem("inputType", input)
     localStorage.setItem("WhichType", 4);
+    localStorage.setItem("k-factor-box", 0); // Disable
+    saveAll();
     location.reload();
   }
 </script>

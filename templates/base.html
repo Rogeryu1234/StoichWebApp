@@ -11,6 +11,51 @@
   </head>
 <body>
   <h1 id="t"> StoichiometryFitter</h1>
+  <script>
+    function saveAll() {
+      /*
+      * This function save all the data at the moment the web page is refreshed or submitted.
+      */
+      if (document.getElementById("phaseAnalysis").checked) { // Record whether the User check Phase Analysis.
+        localStorage.setItem("phaseAnalysis", 1); // 1 represent true (checkbox selected)
+      } else {
+        localStorage.setItem("phaseAnalysis", 0); // 0 represent false (checkbox not selected)
+      }
+      localStorage.setItem("phase", document.getElementById("phase").value); // Store phase selection.
+      if (document.getElementById("arbitraryAnalysis").checked) { // Record whether the User check Arbitrary Absorption.
+        localStorage.setItem("arbitraryAnalysis", 1); // 1 represent true (checkbox selected)
+      } else {
+        localStorage.setItem("arbitraryAnalysis", 0); // 0 represent false (checkbox not selected)
+      }
+      localStorage.setItem("arbitrary", document.getElementById("arbitrary").value); // Store DetectorFile selection.
+      if (document.getElementById("TEM").checked) { // Record whether the User check TEM Correction.
+        localStorage.setItem("TEM", 1); // 1 represent true (checkbox selected)
+      } else {
+        localStorage.setItem("TEM", 0); // 0 represent false (checkbox not selected)
+      }
+      localStorage.setItem("density", document.getElementById("density").value); // Store density input.
+      localStorage.setItem("degree", document.getElementById("degree").value); // Store degree input.
+      localStorage.setItem("k-value", document.getElementById("k-value").value); // Store k-value selection.
+  
+      for (var i = 0; i < element2.length; i++) {
+        localStorage.setItem(element2[i]+"1", document.getElementById(element2[i]+"1").value);
+      }
+      if (document.getElementById("k-factor").checked) { // Record whether the User check k-factors.
+        localStorage.setItem("k-factor", 1); // 1 represent true (checkbox selected)
+      } else {
+        localStorage.setItem("k-factor", 0); // 0 represent false (checkbox not selected)
+      }
+      if (document.getElementById("oxygen").checked) { // Record whether the User check Oxygen.
+        localStorage.setItem("oxygen", 1); // 1 represent true (checkbox selected)
+      } else {
+        localStorage.setItem("oxygen", 0); // 0 represent false (checkbox not selected)
+      }
+      
+      // location.reload();
+      return false;
+      //return true;
+    }
+  </script>
 
   <script>
     const element2 = ["H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P",
@@ -23,7 +68,7 @@
   </script>
   
 <div>
-  <form action="" method="post" onSubmit="saveComment()">
+  <form action="" method="post" onSubmit="saveAll()">
 
    
   <div id="box1">
@@ -40,6 +85,7 @@
       {% endblock %}
     </div>
     <p>Name:</p>
+    <p><input type="reset" value="Reset"></p>
     <p><input type="submit" name="GO" id="GO" value= "Go!"></p>
 
   </div>
@@ -53,21 +99,10 @@
   </div>
   </form>
 </div>
+
+
   
 <script>
-  function saveComment() {
-    var comment = document.getElementById("density").value;
-  
-    localStorage.setItem("comment", comment);
-    
-    for (var i = 0; i < element2.length; i++) {
-      localStorage.setItem(element2[i]+"1", document.getElementById(element2[i]+"1").value);
-    }
-    
-    location.reload();
-    return false;
-    //return true;
-  }
   
   for (var i = 0; i < element2.length; i++) {
     if (localStorage.getItem(element2[i] + "1") == null) {
@@ -76,8 +111,79 @@
       document.getElementById(element2[i] + "1").value = localStorage.getItem(element2[i] + "1");
     }
   }
-  document.getElementById("density").value = localStorage.getItem("comment");
-  localStorage.clear();
+  // Check or uncheck Phase Analysis checkbox if in localStorage.
+  if (localStorage.getItem("phaseAnalysis") != null) {
+    if (localStorage.getItem("phaseAnalysis") == 1) {
+      document.getElementById("phaseAnalysis").checked = true;
+    } else {
+      document.getElementById("phaseAnalysis").checked = false;
+    }
+  }
+  // Obtain and fill in the phase selection if in localStorage.
+  if (localStorage.getItem("phase") != null) {
+    document.getElementById("phase").value = localStorage.getItem("phase");
+  }
+  // Check or uncheck Arbitrary Absorption checkbox if in localStorage.
+  if (localStorage.getItem("arbitraryAnalysis") != null) {
+    if (localStorage.getItem("arbitraryAnalysis") == 1) {
+      document.getElementById("arbitraryAnalysis").checked = true;
+    } else {
+      document.getElementById("arbitraryAnalysis").checked = false;
+    }
+  }
+  // Obtain and fill in the DetectorFile selection if in localStorage.
+  if (localStorage.getItem("arbitrary") != null) {
+    document.getElementById("arbitrary").value = localStorage.getItem("arbitrary");
+  }
+  // Check or uncheck TEM correction checkbox if in localStorage.
+  if (localStorage.getItem("TEM") != null) {
+    if (localStorage.getItem("TEM") == 1) {
+      document.getElementById("TEM").checked = true;
+    } else {
+      document.getElementById("TEM").checked = false;
+    }
+  }
+  // Obtain and fill in the density value if in localStorage.
+  if (localStorage.getItem("density") != null) {
+    document.getElementById("density").value = localStorage.getItem("density");
+  }
+  // Obtain and fill in the degree value if in localStorage.
+  if (localStorage.getItem("degree") != null) {
+    document.getElementById("degree").value = localStorage.getItem("degree");
+  }
+  // Check if k-factors is disabled.
+  if (localStorage.getItem("k-factor-box") != null) {
+    if (localStorage.getItem("k-factor-box") == 0) {
+      document.getElementById("k-factor").disabled = true;
+    } else {
+      document.getElementById("k-factor").disabled = false;
+    }
+  }
+  // Obtain and fill in the k-value if in localStorage.
+  if (localStorage.getItem("k-value") != null) {
+    document.getElementById("k-value").value = localStorage.getItem("k-value");
+  }
+  // Check or uncheck k-factor checkbox if in localStorage.
+  if (localStorage.getItem("k-factor") != null) {
+    if (localStorage.getItem("k-factor") == 1) {
+      document.getElementById("k-factor").checked = true;
+    } else {
+      document.getElementById("k-factor").checked = false;
+    }
+  }
+
+  // Check or uncheck oxygen checkbox if in localStorage.
+  if (localStorage.getItem("oxygen") != null) {
+    if (localStorage.getItem("oxygen") == 1) {
+      document.getElementById("oxygen").checked = true;
+    } else {
+      document.getElementById("oxygen").checked = false;
+    }
+  }
+  
+
+  
+  // localStorage.clear();
   //document.write(localStorage.getItem(element2[0] + "1"));
   
 
