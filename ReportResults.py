@@ -101,6 +101,19 @@ def FormatInputResults(Quant, InputType):
 
     ReportStr += '\n'.format()
 
+    # for El, Abund in Q.items():
+    #     SumAbundance += Abund
+    #     if Abund > 0.1:
+    #         # Report straightforward percentages.
+    #         ReportStr += '{}\t\t{:.3f}\n'.format(El, Abund)
+    #         # ReportStr += str(El) + "\t\t {:.3f}\n".format(Abund)
+    #     else:
+    #         # For trace elements report ppm.
+    #         ReportStr += '{}\t\t{:.0f} ppm\n'.format(El, Abund*1e4)
+    #         # ReportStr += str(El) + "\t\t" + str(Abund) + "\n"
+    # ReportStr += '{:}\t\t{:.3f}\n'.format('Total:', SumAbundance)
+    # ReportStr += '\n'.format()
+
     return ReportStr
 
 def FormatPhaseResults(FitResult, Residual, FitComposition):

@@ -23,68 +23,36 @@ import PhaseFit
 # Stoich = pd.read_csv("ConfigData/stoich Silicates.csv")
 Stoich = np.genfromtxt('ConfigData/stoich Silicates.csv', dtype=None, comments='#', delimiter=',', skip_header=1, converters={1: lambda s: float(s)})
 
-
 # initiate flask app
 app = Flask(__name__)
-
-@app.route('/create', methods = ["POST"])
-def create():
-    if request.method == "POST":
-        print("1111111")
-        print(request.form["foo"])
-        return "<h1>This is the test.</h1>"
 
 # Everything in here.
 @app.route('/', methods = ["POST","GET"])
 def login():
     inputType = "Counts"
     if request.method == "POST":
+        # Detect not identified POST requests.
         if 'GO' not in request.form:
-            return "<h1>This is not a Error!!</h1>"
-        """
-        if 'GO' not in request.form:
-            print("fsjklfjsdks")
-            if request.form["INPUT"] == "select":
-                inputType = request.form["IType"]
-                return render_template("login.html", inputType = inputType)
-            
-            if request.form["IType"] == "Counts":
-                # return "<h1>This is the test1.</h1>"
-                inputType = request.form["IType"]
-                return render_template("login.html", inputType = inputType)
-            elif request.form["IType"] == "At %":
-                # return "<h1>This is the test2.</h1>"
-                inputType = request.form["IType"]
-                return render_template("login.html", inputType = inputType)
-            elif request.form["IType"] == "Weight %":
-                # return "<h1>This is the test3.</h1>"
-                inputType = request.form["IType"]
-                return render_template("login.html", inputType = inputType)
-            elif request.form["IType"] == "Ox Weight %":
-                # return "<h1>This is the test4.</h1>"
-                inputType = request.form["IType"]
-                return render_template("login.html", inputType = inputType)
-            else:
-                return "<h1>This is the Error!!</h1>"
-            """
-            # if request.form["foo"] == "bar":
-                # return render_template("base.html")
+            return "<h1>There is a unidentified POST request!!</h1>"
+
+        # Detect if the user click the submit button.
         if request.form['GO'] == "Go!":
-            # print("False")
             Counts = np.zeros(118)
-            charge = {}
 
             # Obtain InputType
             inputType = request.form["IType"]
 
+            # Read in ElementsList
             element = ["H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr","Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In","Sn","Sb","Te","I","Xe","Cs","Ba","La","Ce","Pr","Nd","Pm","Sm","Eu","Gd","Tb","Dy","Ho","Er","Tm","Yb","Lu","Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg","Tl","Pb","Bi","Po","At","Rn","Fr","Ra","Ac","Th","Pa","U","Np","Pu","Am","Cm","Bk","Cf","Es","Fm","Md","No","Lr","Rf","Db","Sg","Bh","Hs","Mt","Ds","Rg","Cn","Uut","Fl","Uup","Lv","Uus","Uuo"]
             for i in range(len(element)):
                 Counts[i] = request.form[element[i]+"1"]
+
+            # Make the input human readable.
             InputDat = OrderedDict(list(zip(element, Counts)))
-            # print(InputDat)
             ReportStr1 = ReportResults.FormatInputResults(InputDat, inputType)
-            # print(ReportStr1)
+
             # Find out if there is a k-factor file to use.
+            # TODO Add feature --- Allow user to upload their own k-factors file.
             if request.form.get("k-factor"):
                 kfacsfile = request.form["k-value"]
             else:
@@ -93,11 +61,11 @@ def login():
             # Find out if there is an absorption correction to use.
             if request.form.get("arbitraryAnalysis"):
                 DetectorFile = request.form["arbitrary"]
-                # print(absorption)
             else:
                 DetectorFile = None
 
             # Find out if there is an absorption correction to do.
+            AbsorptionCorrection = 0
             if request.form.get("TEM"):
                 try:
                     # The text box uses nm.  Absorption path lengths are in microns, convert.
@@ -114,6 +82,7 @@ def login():
                 Takeoff = 18
 
             # Find out if we are using oxygen by stoichiometry
+            # TODO Implement new Feature: Allow user to upload their own Stoichiometry.
             if request.form.get("oxygen"):
                 # Stoich is a list of tuples.  We want an array of atom charges from the 1 index of the tuples.  So unzip
                 # the list into two tuples,
@@ -122,24 +91,17 @@ def login():
                 # OByStoich = request.form["k-value2"]
             else:
                 OByStoich = None
-            print("djksljfaklsjfkldsjakfldjsaklfjdskalfjklasjfdklasjfklsakljklskljsk")
-            print(Counts)
-            print(kfacsfile)
-            print(DetectorFile)
-            print(AbsorptionCorrection)
-            print(Takeoff)
-            print(OByStoich)
+
             # Stuff the user entered data into a black box and get out At%, Wt% results.
             Quant = CountsToQuantWeb.GetAbundancesFromCounts(Counts, kfacsfile=kfacsfile, InputType= inputType, ArbitraryAbsorptionCorrection=DetectorFile, AbsorptionCorrection=AbsorptionCorrection, Takeoff=Takeoff, OByStoichiometry=OByStoich)
                                                             
             QuantNumbers = [a[1] for a in list(Quant.items())]
             AtPct, WtPct, OxWtPct, kfactors = list(zip(*QuantNumbers))
-            
-            # print(Quant)
-            # print(AtPct, WtPct, OxWtPct, kfactors)
 
+            # Make it human readable.
             ReportStr2 = ReportResults.FormatQuantResults(Quant, ArbitraryAbsorptionCorrection=DetectorFile, AbsorptionCorrection=AbsorptionCorrection,Takeoff=Takeoff,OByStoichiometry=OByStoich,kFactors=kfacsfile)
-            #print(ReportStr2)
+
+            # TODO: Add FIT PHASES Feature.
 
             """ DO CUSTOM PHASE ANALYSES """
             if request.form.get("phaseAnalysis"):
@@ -152,31 +114,20 @@ def login():
                 ReportStr3 = a.AnalyzePhase(AtPct, WtPct, OxWtPct, OByStoich)
             else:
                 ReportStr3 = ""
-
-            for i in element:
-                charge[i] = request.form[i+"2"]
             
+            # Generate final String
             FinalReport = ReportStr1 + ReportStr2 + ReportStr3
-            print(FinalReport)
+            # Change all the python new line to html new line.
             FinalReport = FinalReport.replace("\n", "<br>")
+            # Change all the python space to html space
+            FinalReport = FinalReport.replace(" ", "&nbsp;")
             
-            
-            return render_template('result.html', charge=charge, mylist=Counts, absorption=DetectorFile, degree = Takeoff, density = AbsorptionCorrection, k_factor = kfacsfile, OByStoich = OByStoich, Result = FinalReport, inputType = inputType)
-            #return redirect(url_for("user", usr = phase))
-        if request.form["foo"] == "bar":
-            return "<h1>This is the test.</h1>"
+            # Generate webpage.
+            return render_template('result.html', mylist=Counts, absorption=DetectorFile, degree = Takeoff, density = AbsorptionCorrection, k_factor = kfacsfile, OByStoich = OByStoich, Result = FinalReport, inputType = inputType)
     else:
-        Stoich2 = np.genfromtxt('ConfigData/stoich Silicates.csv', dtype=None, comments='#', delimiter=',', skip_header=1, converters={1: lambda s: float(s)})
-        Stoich3 = []
-        for i in range(len(Stoich2)):
-            Stoich3.append(Stoich2[i][1])
-            # print(Stoich2[i][1])
-        Stoich3 = json.dumps(Stoich3)
-        return render_template('login.html', Stoich = Stoich3)
+        # Reload if no POST request received.
+        return render_template('login.html')
 
-@app.route("/<usr>")
-def user(usr):
-    return f"<h1>This is the dictionary{usr}</h1>"
-
+# Run
 if __name__ == '__main__':
     app.run(debug = True)
