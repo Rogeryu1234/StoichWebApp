@@ -3,120 +3,99 @@
 
 {% block content %}
 <script>
-        
+  // Check InputType.  
   if (localStorage.getItem("inputType") != null) {
       var inputType = localStorage.getItem("inputType");
   } else {
       // This is the default value of inputType.
       var inputType = "Counts";
   }
-  // document.getElementById('message').innerHTML = inputType;
 </script>
 
 <script language="javascript" type="text/javascript">
-    //var Stoich = JSON.parse("{{ Stoich }}");
-    //var inputType = JSON.parse("{{ inputType }}");
-    function myFunc2(vars) {
-    return vars
-  }
-    var Stoich = [1.0, 0.0, 1.0, 2.0, 3.0, 4.0, -3.0, -2.0, -1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 
-    -2.0, -1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 3.0, 3.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0.0, 0.0, 
-    0.0, -2.0, -1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
-    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
-     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-    const element = ["H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P",
-"S","Cl","Ar","K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se",
-"Br","Kr","Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In","Sn","Sb","Te","I",
-"Xe","Cs","Ba","La","Ce","Pr","Nd","Pm","Sm","Eu","Gd","Tb","Dy","Ho","Er","Tm","Yb","Lu",
-"Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg","Tl","Pb","Bi","Po","At","Rn","Fr","Ra","Ac",
-"Th","Pa","U","Np","Pu","Am","Cm","Bk","Cf","Es","Fm","Md","No","Lr","Rf","Db","Sg","Bh",
-"Hs","Mt","Ds","Rg","Cn","Uut","Fl","Uup","Lv","Uus","Uuo"]
-
-    document.write("<table>");
-    document.write("<form>");
+  // Create Element table.
+  document.write("<table>");
+  document.write("<form>");
+  document.write("<tr>");
+  document.write("<th>Element</th> <th id= \"abcde\">"+ inputType +"</th> <th>Charge</th>");
+  document.write("</tr>");
+  for (var a=0; a < element2.length; a++) {
     document.write("<tr>");
-    document.write("<th>Element</th> <th id= \"abcde\">"+ inputType +"</th> <th>Charge</th>");
+    document.write("<td><label for=" + "name" + ">" + element2[a]+ "</label></td>");
+    document.write("<td><input type= \"number\" id = \"" + element2[a] + "1\"" +  " name= \"" + element2[a] + "1" +"\" value=\"0\" /></td>");
+    document.write("<td><input type= \"number\" id = \"" + element2[a] + "2\"" +  " name= \"" + element2[a] + "2" +"\" value= \"" + Stoich[a] + "\"/></td>");
     document.write("</tr>");
-    for (var a=0; a < element.length; a++) {
-      document.write("<tr>");
-      document.write("<td><label for=" + "name" + ">" + element[a]+ "</label></td>");
-      document.write("<td><input type= \"number\" id = \"" + element[a] + "1\"" +  " name= \"" + element[a] + "1" +"\" value=\"0\" /></td>");
-      document.write("<td><input type= \"number\" id = \"" + element[a] + "2\"" +  " name= \"" + element[a] + "2" +"\" value= \"" + Stoich[a] + "\"/></td>");
-      document.write("</tr>");
-    }
-    document.write("</form>");
-    document.write("</table>");
-    </script>
+  }
+  document.write("</form>");
+  document.write("</table>");
+</script>
 {% endblock %}
 
 
 {% block content2 %}
+<!-- Phase Analysis SelectBox -->
 <div>
-<label for="phaseAnalysis">
-    Phase Analysis: 
+  <label for="phaseAnalysis">
+      Phase Analysis: 
+      <br>
+      <input type="checkbox" id="phaseAnalysis" name="phaseAnalysis"> 
+      <select name="phase" id="phase">
+        <option value="Feldspar">Feldspar</option>
+        <option value="QMin Algorithm">QMin Algorithm</option>
+        <option value="Sulfide">Sulfide</option>
+        <option value="Mole Fractions">Mole Fractions</option>
+        <option value="Carbon">Carbon</option>
+        <option value="Bulk Composition">Bulk Composition</option>
+        <option value="Spinel">Spinel</option>
+        <option value="Pyroxene ideal">Pyroxene ideal</option>
+        <option value="Serpentine">Serpentine</option>
+        <option value="Sheet Silicate Ternary">Sheet Silicate Ternary</option>
+        <option value="Feldspathoid">Feldspathoid</option>
+        <option value="GEMS Comparison">GEMS Comparison</option>
+        <option value="Olivine">Olivine</option>
+      </select>
+  </label>
+</div>
+
+<!-- Arbitrary Absorption SelectBox -->
+<div>
+  <label for="arbitraryAnalysis">Arbitrary Absorption:
     <br>
-    <input type="checkbox" id="phaseAnalysis" name="phaseAnalysis"> 
-    <select name="phase" id="phase">
-      <option value="Feldspar">Feldspar</option>
-      <option value="QMin Algorithm">QMin Algorithm</option>
-      <option value="Sulfide">Sulfide</option>
-      <option value="Mole Fractions">Mole Fractions</option>
-      <option value="Carbon">Carbon</option>
-      <option value="Bulk Composition">Bulk Composition</option>
-      <option value="Spinel">Spinel</option>
-      <option value="Pyroxene ideal">Pyroxene ideal</option>
-      <option value="Serpentine">Serpentine</option>
-      <option value="Sheet Silicate Ternary">Sheet Silicate Ternary</option>
-      <option value="Feldspathoid">Feldspathoid</option>
-      <option value="GEMS Comparison">GEMS Comparison</option>
-      <option value="Olivine">Olivine</option>
+    <input type="checkbox" id="arbitraryAnalysis" name="arbitraryAnalysis">
+    <select name="arbitrary" id="arbitrary">
+      <option value="Titan Detector Window">Titan Detector Window</option>
     </select>
-</label>
+  </label>
 </div>
 
-<div>
-    <label for="arbitraryAnalysis">Arbitrary Absorption:
-<br>
-
-<input type="checkbox" id="arbitraryAnalysis" name="arbitraryAnalysis">
-<select name="arbitrary" id="arbitrary">
-  <option value="Titan Detector Window">Titan Detector Window</option>
-</select>
-</label>
-</div>
-
+<!-- TEM Thickness Correction -->
 <div>
     <label for="TEM">TEM Thickness Correction</label>
     <br>
     <input type="checkbox" id="TEM" name="TEM">
-    <input name="density" id="density" type="text" value="">
-    <!--
-    <input type="text" name = "density"> -->
+    <input name="density" id="density" type="number" value="0">
     <label for="cars">g/cm3 * nm</label>
-    <input type="text" id="degree" name = "degree" value="18">
+    <input type="number" id="degree" name = "degree" value="18">
     <label for="cars">takeoff in deg</label>
 </div>
 
+<!-- Apply k-factor -->
 <div>
     <label for="k-factor">Apply k-factor for
-    <br>
-    <input type="checkbox" id="k-factor" name="k-factor">
-    <select name="k-value" id="k-value">
-        <option value="Titan 60 keV">Titan 60 keV</option>
-        <option value="Titan 80 keV manual O">Titan 80 keV manual O</option>
-        <option value="CM200 200 keV">CM200 200 keV</option>
-        <option value="Titan 200 keV">Titan 200 keV</option>
-        <option value="Titan 80 keV">Titan 80 keV</option>
-        <option value="Titan 300 keV">Titan 300 keV</option>
+      <br>
+      <input type="checkbox" id="k-factor" name="k-factor">
+      <select name="k-value" id="k-value">
+          <option value="Titan 60 keV">Titan 60 keV</option>
+          <option value="Titan 80 keV manual O">Titan 80 keV manual O</option>
+          <option value="CM200 200 keV">CM200 200 keV</option>
+          <option value="Titan 200 keV">Titan 200 keV</option>
+          <option value="Titan 80 keV">Titan 80 keV</option>
+          <option value="Titan 300 keV">Titan 300 keV</option>
       </select>
     </label>
 </div>
 
-
-
-
+<!-- Stoichiometry? -->
 <div>
     <label for="oxygen">Oxygen by Stoichiometry?
     <br>
@@ -127,25 +106,7 @@
     </label>
 </div>
 
-
-<!-- <div>
-    <form action="" method="post">
-    <label for="IType"> Input Type:</label>
-    <br>
-    <input type="radio" id="Counts" name="IType" value="Counts">
-    <label for="Counts">Counts</label><br>
-    <input type="radio" id="At" name="IType" value="At %">
-    <label for="At">At %</label><br>
-    <input type="radio" id="Weight" name="IType" value="Weight %">
-    <label for="Weight">Wt %</label><br>
-    <input type="radio" id="Ox" name="IType" value="Ox Weight %">
-    <label for="Ox">Ox Wt %</label><br>
-    <input type="submit" id="INPUT" name="INPUT" value="select">
-    </form>
-</div> -->
-
-
-
+<!-- InputType Selection -->
 <div>
   <label for="IType"> Input Type:</label>
   <br>
@@ -158,91 +119,6 @@
   <input type="radio" id="Ox" name="IType" value="Ox Wt %" onclick="OxWt();">
   <label for="Ox">Ox Wt %</label>
 </div>
-
-<script>
-  if (localStorage.getItem("WhichType") == null || localStorage.getItem("WhichType") == 1) {
-    document.getElementById("Counts").checked = true;
-  } else if (localStorage.getItem("WhichType") == 2) {
-    document.getElementById("At").checked = true;
-  } else if (localStorage.getItem("WhichType") == 3) {
-    document.getElementById("Weight").checked = true;
-  } else if (localStorage.getItem("WhichType") == 4) {
-    document.getElementById("Ox").checked = true;
-  } else {
-    document.write("There is a error!");
-  }
-</script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
-<!-- <script>$("input[name='IType']").eq(0).click(function() {
-  console.log('First was clicked');
-  $.ajax({
-  type: 'POST',
-  data: {"a":"b"},
-  dataType: 'json',
-});
-  document.write("Test");
-});</script> -->
-  
-
-<script>
-  function Countsss() {
-    // document.write("cao");
-    /*
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", '/', true);
-
-    // Send the proper header information along with the request
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    xhr.onreadystatechange = () => { // Call a function when the state changes.
-      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        // Request finished. Do processing here.
-        // document.write("AAAA");
-      }
-    }
-    xhr.send("foo=bar");
-    // xhr.send(new Int8Array());
-    // xhr.send(document);
-    */
-    //document.write("cao");
-    var input = document.getElementById("Counts").value;
-    localStorage.setItem("inputType", input);
-    localStorage.setItem("WhichType", 1);
-    localStorage.setItem("k-factor-box", 1); // Un-Disable
-    saveAll();
-    location.reload();
-  }
-  function Att() {
-    var input = document.getElementById("At").value;
-    localStorage.setItem("inputType", input)
-    localStorage.setItem("WhichType", 2);
-    localStorage.setItem("k-factor-box", 0); // Disable
-    saveAll();
-    location.reload();
-  }
-  function Wt() {
-    var input = document.getElementById("Weight").value;
-    localStorage.setItem("inputType", input)
-    localStorage.setItem("WhichType", 3);
-    localStorage.setItem("k-factor-box", 0); // Disable
-    saveAll();
-    location.reload();
-  }
-  function OxWt() {
-    var input = document.getElementById("Ox").value;
-    localStorage.setItem("inputType", input)
-    localStorage.setItem("WhichType", 4);
-    localStorage.setItem("k-factor-box", 0); // Disable
-    saveAll();
-    location.reload();
-  }
-</script>
-
-
 {% endblock %}
 
 

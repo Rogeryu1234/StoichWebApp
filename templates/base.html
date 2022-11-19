@@ -7,191 +7,48 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type = "text/css" href="{{ url_for('static', filename = 'Bootstrap.css') }}">
     <link rel="stylesheet" type = "text/css" href="{{ url_for('static', filename = 'style1.css') }}">
-
+    <script src="/static/utils.js"></script>
   </head>
 <body>
   <h1 id="t"> StoichiometryFitter</h1>
-  <script>
-    function saveAll() {
-      /*
-      * This function save all the data at the moment the web page is refreshed or submitted.
-      */
-      if (document.getElementById("phaseAnalysis").checked) { // Record whether the User check Phase Analysis.
-        localStorage.setItem("phaseAnalysis", 1); // 1 represent true (checkbox selected)
-      } else {
-        localStorage.setItem("phaseAnalysis", 0); // 0 represent false (checkbox not selected)
-      }
-      localStorage.setItem("phase", document.getElementById("phase").value); // Store phase selection.
-      if (document.getElementById("arbitraryAnalysis").checked) { // Record whether the User check Arbitrary Absorption.
-        localStorage.setItem("arbitraryAnalysis", 1); // 1 represent true (checkbox selected)
-      } else {
-        localStorage.setItem("arbitraryAnalysis", 0); // 0 represent false (checkbox not selected)
-      }
-      localStorage.setItem("arbitrary", document.getElementById("arbitrary").value); // Store DetectorFile selection.
-      if (document.getElementById("TEM").checked) { // Record whether the User check TEM Correction.
-        localStorage.setItem("TEM", 1); // 1 represent true (checkbox selected)
-      } else {
-        localStorage.setItem("TEM", 0); // 0 represent false (checkbox not selected)
-      }
-      localStorage.setItem("density", document.getElementById("density").value); // Store density input.
-      localStorage.setItem("degree", document.getElementById("degree").value); // Store degree input.
-      localStorage.setItem("k-value", document.getElementById("k-value").value); // Store k-value selection.
-  
-      for (var i = 0; i < element2.length; i++) {
-        localStorage.setItem(element2[i]+"1", document.getElementById(element2[i]+"1").value);
-      }
-      if (document.getElementById("k-factor").checked) { // Record whether the User check k-factors.
-        localStorage.setItem("k-factor", 1); // 1 represent true (checkbox selected)
-      } else {
-        localStorage.setItem("k-factor", 0); // 0 represent false (checkbox not selected)
-      }
-      if (document.getElementById("oxygen").checked) { // Record whether the User check Oxygen.
-        localStorage.setItem("oxygen", 1); // 1 represent true (checkbox selected)
-      } else {
-        localStorage.setItem("oxygen", 0); // 0 represent false (checkbox not selected)
-      }
-      
-      // location.reload();
-      return false;
-      //return true;
-    }
-  </script>
-
-  <script>
-    const element2 = ["H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si","P",
-"S","Cl","Ar","K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se",
-"Br","Kr","Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In","Sn","Sb","Te","I",
-"Xe","Cs","Ba","La","Ce","Pr","Nd","Pm","Sm","Eu","Gd","Tb","Dy","Ho","Er","Tm","Yb","Lu",
-"Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg","Tl","Pb","Bi","Po","At","Rn","Fr","Ra","Ac",
-"Th","Pa","U","Np","Pu","Am","Cm","Bk","Cf","Es","Fm","Md","No","Lr","Rf","Db","Sg","Bh",
-"Hs","Mt","Ds","Rg","Cn","Uut","Fl","Uup","Lv","Uus","Uuo"];
-  </script>
-  
-<div>
-  <form action="" method="post" onSubmit="saveAll()">
-
-   
-  <div id="box1">
-    <div id="content"> 
-      {% block content %}
-      {% endblock %}
-      
+  <hr>
+  <div class="all-content">
+    <form action="" method="post" onSubmit="saveAll()">
+    <!-- ElementListControl -->
+    <div id="box1">
+      <div id="content"> 
+        {% block content %}
+        {% endblock %}
+      </div>
     </div>
-  </div>
-
-  <div id="box2">
-    <div id="content">
-      {% block content2 %}
-      {% endblock %}
-    </div>
-    <p>Name:</p>
-    <p><input type="reset" value="Reset"></p>
-    <p><input type="submit" name="GO" id="GO" value= "Go!"></p>
-
-  </div>
-
-  <div id="box3">
-    <div id="content">
-      {% block content3 %}
-      {% endblock %}
+    
+    <div id="box2">
+      <div id="content">
+        {% block content2 %}
+        {% endblock %}
+      </div>
+      <p>Name:</p>
+      <p><input type="reset" value="Reset"></p>
+      <p><input type="submit" name="GO" id="GO" value= "Go!"></p>
     </div>
 
+    <div id="box3">
+      <div id="content">
+        <h2>Result:</h2>
+        {% block content3 %}
+        {% endblock %}
+      </div>
+    </div>
+
+    <div id="graphics">
+      <div id="content">
+        <h2>Graphics:</h2>
+      </div>
+    </div>
+    </form>
   </div>
-  </form>
-</div>
 
-
-  
-<script>
-  
-  for (var i = 0; i < element2.length; i++) {
-    if (localStorage.getItem(element2[i] + "1") == null) {
-      document.getElementById(element2[i] + "1").value = 0;
-    } else {
-      document.getElementById(element2[i] + "1").value = localStorage.getItem(element2[i] + "1");
-    }
-  }
-  // Check or uncheck Phase Analysis checkbox if in localStorage.
-  if (localStorage.getItem("phaseAnalysis") != null) {
-    if (localStorage.getItem("phaseAnalysis") == 1) {
-      document.getElementById("phaseAnalysis").checked = true;
-    } else {
-      document.getElementById("phaseAnalysis").checked = false;
-    }
-  }
-  // Obtain and fill in the phase selection if in localStorage.
-  if (localStorage.getItem("phase") != null) {
-    document.getElementById("phase").value = localStorage.getItem("phase");
-  }
-  // Check or uncheck Arbitrary Absorption checkbox if in localStorage.
-  if (localStorage.getItem("arbitraryAnalysis") != null) {
-    if (localStorage.getItem("arbitraryAnalysis") == 1) {
-      document.getElementById("arbitraryAnalysis").checked = true;
-    } else {
-      document.getElementById("arbitraryAnalysis").checked = false;
-    }
-  }
-  // Obtain and fill in the DetectorFile selection if in localStorage.
-  if (localStorage.getItem("arbitrary") != null) {
-    document.getElementById("arbitrary").value = localStorage.getItem("arbitrary");
-  }
-  // Check or uncheck TEM correction checkbox if in localStorage.
-  if (localStorage.getItem("TEM") != null) {
-    if (localStorage.getItem("TEM") == 1) {
-      document.getElementById("TEM").checked = true;
-    } else {
-      document.getElementById("TEM").checked = false;
-    }
-  }
-  // Obtain and fill in the density value if in localStorage.
-  if (localStorage.getItem("density") != null) {
-    document.getElementById("density").value = localStorage.getItem("density");
-  }
-  // Obtain and fill in the degree value if in localStorage.
-  if (localStorage.getItem("degree") != null) {
-    document.getElementById("degree").value = localStorage.getItem("degree");
-  }
-  // Check if k-factors is disabled.
-  if (localStorage.getItem("k-factor-box") != null) {
-    if (localStorage.getItem("k-factor-box") == 0) {
-      document.getElementById("k-factor").disabled = true;
-    } else {
-      document.getElementById("k-factor").disabled = false;
-    }
-  }
-  // Obtain and fill in the k-value if in localStorage.
-  if (localStorage.getItem("k-value") != null) {
-    document.getElementById("k-value").value = localStorage.getItem("k-value");
-  }
-  // Check or uncheck k-factor checkbox if in localStorage.
-  if (localStorage.getItem("k-factor") != null) {
-    if (localStorage.getItem("k-factor") == 1) {
-      document.getElementById("k-factor").checked = true;
-    } else {
-      document.getElementById("k-factor").checked = false;
-    }
-  }
-
-  // Check or uncheck oxygen checkbox if in localStorage.
-  if (localStorage.getItem("oxygen") != null) {
-    if (localStorage.getItem("oxygen") == 1) {
-      document.getElementById("oxygen").checked = true;
-    } else {
-      document.getElementById("oxygen").checked = false;
-    }
-  }
-  
-
-  
-  localStorage.clear();
-  //document.write(localStorage.getItem(element2[0] + "1"));
-  
-
-  
-</script>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- Use SessionStorage to store all the input at the end. -->
+  <script src="/static/sessionStorage.js"></script>
 </body>
 </html>

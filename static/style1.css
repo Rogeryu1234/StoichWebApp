@@ -1,5 +1,5 @@
 body {
-    color: blueviolet;
+    /* color: blueviolet; */
 }
 
 * {
@@ -7,6 +7,13 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.all-content::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 table input {
     width: 80px;
 }
@@ -25,9 +32,11 @@ input {
 td {
     width: 200px;
     text-align: center;
+    /* min-width: 200px; */
 }
 th {
     text-align: center;
+    /* min-width: 200px; */
 }
 
 body {
@@ -35,50 +44,73 @@ body {
 }
 
 #box1 {
-  background-color: blue;
+  float: left;
+  /* background-color: blue; */
   padding: 10px;
-  border: 5px solid black;
-  width: 300px;
+  /* border: 5px solid black; */
+  /* width: 300px; */
+  width: 25%;
   height: 600px;
   margin-top: 10px;
   overflow: auto;
-  margin-right: 10px;
+  margin-right: 5%;
+  margin-left: 20%;
+  overflow-x: scroll;
+  /* min-width: 400px; */
 }
 
 #box2 {
-    background-color: blueviolet;
+  float: left;
+    /* background-color: blueviolet; */
     padding: 10px;
-    border: 5px solid black;
-    width: 500px;
+    /* border: 5px solid black; */
+    width: 30%;
     height: 600px;
     margin-top: 10px;
     overflow: auto;
-    margin-right: 10px;
-    margin-bottom: 100px;
-    clear: left;
-    position: absolute;
-    right: 600px;
-    top: 68px;
+    /* margin-right: 10px; */
+    /* margin-bottom: 100px; */
+    /* clear: left; */
+    /* position: absolute; */
+    /* right: 600px; */
+    /* top: 68px; */
   }
 
   #box3 {
-    background-color: purple;
+    float: left;
+    /* background-color: purple; */
     padding: 10px;
-    border: 5px solid black;
-    width: 500px;
+    /* border: 5px solid black; */
+    width: 50%;
+    height: 600px;
+    margin-top: 10px;
+    overflow: auto;
+    margin-right: 5%;
+    margin-bottom: 100px;
+    /* position: absolute;
+    right: 80px;
+    top: 68px; */
+    overflow-x: scroll;
+  }
+
+  #graphics {
+    float: left;
+    padding: 10px;
+    /* border: 5px solid black; */
+    width: 40%;
     height: 600px;
     margin-top: 10px;
     overflow: auto;
     margin-right: 10px;
     margin-bottom: 100px;
-    position: absolute;
+    /* position: absolute;
     right: 80px;
-    top: 68px;
+    top: 68px; */
   }
 
 
 #content {
-  background-color: #90EE90; /* green */
+  /* background-color: #90EE90; */
 }
 
 h1 {
@@ -87,7 +119,7 @@ h1 {
 
 #t {
     text-align: center;
-    color: orchid;
+    /* color: orchid; */
 }
 
 #Ox {
