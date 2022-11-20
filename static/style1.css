@@ -18,6 +18,10 @@ table input {
     width: 80px;
 }
 
+p {
+  line-height: 1;
+}
+
 p input {
   width: 280px;
   text-align: center;
@@ -122,6 +126,17 @@ h1 {
     /* color: orchid; */
 }
 
-#Ox {
-  width: 100px;
+.infotext {
+  visibility: hidden;
+  width: 120px;
+  color:black;
+  background-color:yellow;
+  width: fit-content;
+  border-radius: 6px;
+  padding: 5px 0;
+  position:fixed;
+}
+
+#info:hover .infotext {
+  visibility: visible;
 }

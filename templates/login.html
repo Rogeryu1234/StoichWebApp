@@ -36,8 +36,11 @@
 <!-- Phase Analysis SelectBox -->
 <div>
   <label for="phaseAnalysis">
-      Phase Analysis: 
-      <br>
+      <p> Phase Analysis: 
+        <span id="info" style="color:blue;">&#9432;
+          <span class="infotext">Discription Need to add</span>
+        </span>
+      </p>
       <input type="checkbox" id="phaseAnalysis" name="phaseAnalysis"> 
       <select name="phase" id="phase">
         <option value="Feldspar">Feldspar</option>
@@ -59,8 +62,13 @@
 
 <!-- Arbitrary Absorption SelectBox -->
 <div>
-  <label for="arbitraryAnalysis">Arbitrary Absorption:
-    <br>
+  <label for="arbitraryAnalysis">
+    
+    <p>Arbitrary Absorption: 
+      <span id="info" style="color: blue;">&#9432;
+        <span class="infotext">This is pretty useful, since after the photon is ejected. Before it is received by the detector, it will actually go through a thin layer (depend on the device you are using). In our case, we are having something called the Titan Detector Window. It will absorb a small portion of photons. By selecting the checkbox, we will consider the offset and give a more accurate result.</span> 
+      </span>
+    </p>
     <input type="checkbox" id="arbitraryAnalysis" name="arbitraryAnalysis">
     <select name="arbitrary" id="arbitrary">
       <option value="Titan Detector Window">Titan Detector Window</option>
@@ -70,19 +78,35 @@
 
 <!-- TEM Thickness Correction -->
 <div>
-    <label for="TEM">TEM Thickness Correction</label>
-    <br>
+    <label for="TEM">
+      <p>TEM Thickness Correction 
+        <span id="info" style="color: blue;">&#9432;
+          <span class="infotext">The thickness is the thickness of the material, usually from 100nm to 1 micron. The photon ejected at the bottom part of the layer, will be partially absorbed. For example, if you have a very thick layer, the photons ejected at the very bottom of the material will be absorbed a lot by the material itself. Checking this checkbox will reduce this offset. 
+            The take off angle is the angle of the detector relative to the material.</span>
+        </span>
+      </p>
+    
     <input type="checkbox" id="TEM" name="TEM">
     <input name="density" id="density" type="number" value="0">
     <label for="cars">g/cm3 * nm</label>
+    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="number" id="degree" name = "degree" value="18">
     <label for="cars">takeoff in deg</label>
+    </label>
 </div>
 
 <!-- Apply k-factor -->
 <div>
-    <label for="k-factor">Apply k-factor for
-      <br>
+    <label for="k-factor">
+      <p>Apply k-factor for 
+        <span id="info" style="color: blue;">&#9432;
+          <span class="infotext">
+            Concentration(weight percent) = k-factor * counts(of photon)
+            <br>
+            K-factor is depending on the device and the element.
+          </span>
+        </span>
+      </p>
       <input type="checkbox" id="k-factor" name="k-factor">
       <select name="k-value" id="k-value">
           <option value="Titan 60 keV">Titan 60 keV</option>
@@ -97,8 +121,12 @@
 
 <!-- Stoichiometry? -->
 <div>
-    <label for="oxygen">Oxygen by Stoichiometry?
-    <br>
+    <label for="oxygen">
+    <p>Oxygen by Stoichiometry? 
+      <span id="info" style="color: blue;">&#9432;
+        <span class="infotext">Discription Need to add</span>
+      </span>
+    </p>
     <input type="checkbox" id="oxygen" name="oxygen" checked>
     <select name="k-value2" id="k-value2">
         <option value="Silicates">Silicates</option>
@@ -108,8 +136,14 @@
 
 <!-- InputType Selection -->
 <div>
-  <label for="IType"> Input Type:</label>
-  <br>
+  <label for="IType"> 
+    <p>Input Type:
+      <span id="info" style="color: blue;">&#9432;
+        <span class="infotext">
+          Choose the input type.
+        </span>
+      </span>
+    </p>
   <input type="radio" id="Counts" name="IType" value="Counts" checked onclick="Countsss();">
   <label for="Counts">Counts</label><br>
   <input type="radio" id="At" name="IType" value="At %" onclick="Att();">
@@ -118,6 +152,7 @@
   <label for="Weight">Wt %</label><br>
   <input type="radio" id="Ox" name="IType" value="Ox Wt %" onclick="OxWt();">
   <label for="Ox">Ox Wt %</label>
+</label>
 </div>
 {% endblock %}
 

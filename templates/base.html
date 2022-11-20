@@ -5,12 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type = "text/css" href="{{ url_for('static', filename = 'Bootstrap.css') }}">
     <link rel="stylesheet" type = "text/css" href="{{ url_for('static', filename = 'style1.css') }}">
     <script src="/static/utils.js"></script>
   </head>
 <body>
-  <h1 id="t"> StoichiometryFitter</h1>
+  <h1 style="margin-top: 20px;" id="t"> 
+    <i style="color: red;" class="fa fa-heart"></i> 
+    StoichiometryFitter 
+    <i style="color: red;" class="fa fa-heart"></i>
+  </h1>
   <hr>
   <div class="all-content">
     <form action="" method="post" onSubmit="saveAll()">
@@ -27,7 +32,6 @@
         {% block content2 %}
         {% endblock %}
       </div>
-      <p>Name:</p>
       <p><input type="reset" value="Reset"></p>
       <p><input type="submit" name="GO" id="GO" value= "Go!"></p>
     </div>
