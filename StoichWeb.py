@@ -128,6 +128,10 @@ def login():
         # Reload if no POST request received.
         return render_template('login.html')
 
+@app.route('/plot')
+def build_plot():
+    return render_template("a.html")
+
 # Run
 if __name__ == '__main__':
     app.run(debug = True)

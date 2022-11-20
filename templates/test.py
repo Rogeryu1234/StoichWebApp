@@ -1,20 +1,42 @@
-# This is test file.
-SumAbundance = 0
-ReportStr = ""
-ReportStr += 'Input data:\n'.format()
-ReportStr += '{}\t\t{}\n'.format('Element', "Counts")
-Q = {"O": 4000, "Mg": 2000, "Si": 1000}
-# Q = {"O": 0.01, "Mg": 0.02, "Si": 0.05}
-for El, Abund in Q.items():
-    SumAbundance += Abund
-    if Abund > 0.1:
-        # Report straightforward percentages.
-        ReportStr += '{}\t\t{:.3f}\n'.format(El, Abund)
-        # ReportStr += str(El) + "\t\t {:.3f}\n".format(Abund)
-    else:
-        # For trace elements report ppm.
-        ReportStr += '{}\t\t{:.0f} ppm\n'.format(El, Abund*1e4)
-        # ReportStr += str(El) + "\t\t" + str(Abund) + "\n"
-ReportStr += '{:}\t\t{:.3f}\n'.format('Total:', SumAbundance)
-ReportStr += '\n'.format()
-print(ReportStr)
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import mpld3
+from mpld3 import plugins
+np.random.seed(9615)
+
+# generate df
+N = 100
+df = pd.DataFrame((.1 * (np.random.random((N, 5)) - .5)).cumsum(0),
+                  columns=['a', 'b', 'c', 'd', 'e'],)
+
+# plot line + confidence interval
+fig, ax = plt.subplots()
+ax.grid(True, alpha=0.3)
+
+for key, val in df.iteritems():
+    l, = ax.plot(val.index, val.values, label=key)
+    ax.fill_between(val.index,
+                    val.values * .5, val.values * 1.5,
+                    color=l.get_color(), alpha=.4)
+
+# define interactive legend
+
+handles, labels = ax.get_legend_handles_labels() # return lines and labels
+interactive_legend = plugins.InteractiveLegendPlugin(zip(handles,
+                                                         ax.collections),
+                                                     labels,
+                                                     alpha_unsel=0.5,
+                                                     alpha_over=1.5, 
+                                                     start_visible=True)
+plugins.connect(fig, interactive_legend)
+
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_title('Interactive legend', size=20)
+
+
+# mpld3.save_html(fig, fileobj, **kwargs)
+mpld3.save_html(fig, "a.html")
+#a = mpld3.fig_to_html(fig)
+#print(a)
