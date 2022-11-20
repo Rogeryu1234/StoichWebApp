@@ -1,40 +1,41 @@
+// This is the old version, using localstorage.
 function saveAll() {
     /*
     * This function save all the data at the moment the web page is refreshed or submitted.
     */
     if (document.getElementById("phaseAnalysis").checked) { // Record whether the User check Phase Analysis.
-      sessionStorage.setItem("phaseAnalysis", 1); // 1 represent true (checkbox selected)
+      localStorage.setItem("phaseAnalysis", 1); // 1 represent true (checkbox selected)
     } else {
-      sessionStorage.setItem("phaseAnalysis", 0); // 0 represent false (checkbox not selected)
+      localStorage.setItem("phaseAnalysis", 0); // 0 represent false (checkbox not selected)
     }
-    sessionStorage.setItem("phase", document.getElementById("phase").value); // Store phase selection.
+    localStorage.setItem("phase", document.getElementById("phase").value); // Store phase selection.
     if (document.getElementById("arbitraryAnalysis").checked) { // Record whether the User check Arbitrary Absorption.
-      sessionStorage.setItem("arbitraryAnalysis", 1); // 1 represent true (checkbox selected)
+      localStorage.setItem("arbitraryAnalysis", 1); // 1 represent true (checkbox selected)
     } else {
-      sessionStorage.setItem("arbitraryAnalysis", 0); // 0 represent false (checkbox not selected)
+      localStorage.setItem("arbitraryAnalysis", 0); // 0 represent false (checkbox not selected)
     }
-    sessionStorage.setItem("arbitrary", document.getElementById("arbitrary").value); // Store DetectorFile selection.
+    localStorage.setItem("arbitrary", document.getElementById("arbitrary").value); // Store DetectorFile selection.
     if (document.getElementById("TEM").checked) { // Record whether the User check TEM Correction.
-      sessionStorage.setItem("TEM", 1); // 1 represent true (checkbox selected)
+      localStorage.setItem("TEM", 1); // 1 represent true (checkbox selected)
     } else {
-      sessionStorage.setItem("TEM", 0); // 0 represent false (checkbox not selected)
+      localStorage.setItem("TEM", 0); // 0 represent false (checkbox not selected)
     }
-    sessionStorage.setItem("density", document.getElementById("density").value); // Store density input.
-    sessionStorage.setItem("degree", document.getElementById("degree").value); // Store degree input.
-    sessionStorage.setItem("k-value", document.getElementById("k-value").value); // Store k-value selection.
+    localStorage.setItem("density", document.getElementById("density").value); // Store density input.
+    localStorage.setItem("degree", document.getElementById("degree").value); // Store degree input.
+    localStorage.setItem("k-value", document.getElementById("k-value").value); // Store k-value selection.
 
     for (var i = 0; i < element2.length; i++) {
-      sessionStorage.setItem(element2[i]+"1", document.getElementById(element2[i]+"1").value);
+      localStorage.setItem(element2[i]+"1", document.getElementById(element2[i]+"1").value);
     }
     if (document.getElementById("k-factor").checked) { // Record whether the User check k-factors.
-      sessionStorage.setItem("k-factor", 1); // 1 represent true (checkbox selected)
+      localStorage.setItem("k-factor", 1); // 1 represent true (checkbox selected)
     } else {
-      sessionStorage.setItem("k-factor", 0); // 0 represent false (checkbox not selected)
+      localStorage.setItem("k-factor", 0); // 0 represent false (checkbox not selected)
     }
     if (document.getElementById("oxygen").checked) { // Record whether the User check Oxygen.
-      sessionStorage.setItem("oxygen", 1); // 1 represent true (checkbox selected)
+      localStorage.setItem("oxygen", 1); // 1 represent true (checkbox selected)
     } else {
-      sessionStorage.setItem("oxygen", 0); // 0 represent false (checkbox not selected)
+      localStorage.setItem("oxygen", 0); // 0 represent false (checkbox not selected)
     }
     
     // location.reload();
@@ -45,9 +46,9 @@ function saveAll() {
 // Function when you select "Counts" Input Type
 function Countsss() {
   var input = document.getElementById("Counts").value;
-  sessionStorage.setItem("inputType", input);
-  sessionStorage.setItem("WhichType", 1);
-  sessionStorage.setItem("k-factor-box", 1); // Un-Disable
+  localStorage.setItem("inputType", input);
+  localStorage.setItem("WhichType", 1);
+  localStorage.setItem("k-factor-box", 1); // Un-Disable
   saveAll();
   location.reload();
 }
@@ -55,9 +56,9 @@ function Countsss() {
 // Function when you select "At %" Input Type
 function Att() {
   var input = document.getElementById("At").value;
-  sessionStorage.setItem("inputType", input)
-  sessionStorage.setItem("WhichType", 2);
-  sessionStorage.setItem("k-factor-box", 0); // Disable
+  localStorage.setItem("inputType", input)
+  localStorage.setItem("WhichType", 2);
+  localStorage.setItem("k-factor-box", 0); // Disable
   saveAll();
   location.reload();
 }
@@ -65,9 +66,9 @@ function Att() {
 // Function when you select "Wt %" Input Type
 function Wt() {
   var input = document.getElementById("Weight").value;
-  sessionStorage.setItem("inputType", input)
-  sessionStorage.setItem("WhichType", 3);
-  sessionStorage.setItem("k-factor-box", 0); // Disable
+  localStorage.setItem("inputType", input)
+  localStorage.setItem("WhichType", 3);
+  localStorage.setItem("k-factor-box", 0); // Disable
   saveAll();
   location.reload();
 }
@@ -75,9 +76,9 @@ function Wt() {
 // Function when you select "Ox Weight %" Input Type
 function OxWt() {
   var input = document.getElementById("Ox").value;
-  sessionStorage.setItem("inputType", input)
-  sessionStorage.setItem("WhichType", 4);
-  sessionStorage.setItem("k-factor-box", 0); // Disable
+  localStorage.setItem("inputType", input)
+  localStorage.setItem("WhichType", 4);
+  localStorage.setItem("k-factor-box", 0); // Disable
   saveAll();
   location.reload();
 }
