@@ -4,8 +4,8 @@
 {% block content %}
 <script>
   // Check InputType.  
-  if (localStorage.getItem("inputType") != null) {
-      var inputType = localStorage.getItem("inputType");
+  if (sessionStorage.getItem("inputType") != null) {
+      var inputType = sessionStorage.getItem("inputType");
   } else {
       // This is the default value of inputType.
       var inputType = "Counts";

@@ -1,46 +1,42 @@
-<!DOCTYPE html>
 <html>
+   
 <head>
-<style>
-* {
-  box-sizing: border-box;
-}
-
-.box {
-  float: left;
-  width: 30%;
-  padding: 50px;
-  margin-right: 3.3%;
-}
-
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-</style>
+    <title>
+        How to change the height of an
+        iframe to 100% with JavaScript?
+    </title>
 </head>
-<body>
-
-<h2>Grid of Boxes</h2>
-<p>Float boxes side by side:</p>
-
-<div class="clearfix">
-  <div class="box" style="background-color:#bbb">
-  <p>Some text inside the box.</p>
-  </div>
-  <div class="box" style="background-color:#ccc">
-  <p>Some text inside the box.</p>
-  </div>
-  <div class="box" style="background-color:#ddd">
-  <p>Some text inside the box.</p>
-  </div>
-</div>
-
-<p><strong>Note:</strong> Here, we use the clearfix hack to take care of the layout flow. 
-We also use the box-sizing property to make sure that the box doesn't break due to extra padding. Try to remove this code to see the effect.</p>
-
-</body>
+   
+<body style="text-align:center;">
+   
+    <h1 style="color:green;">
+        GeeksforGeeks
+    </h1>
+   
+    <h3>
+        How to change the height of a
+        <iframe id="iframe" width="100%" height="40%"
+        src="https://www.youtube.com/embed/hjGD08xfg9c"
+        frameborder="0" allowfullscreen>
+        </iframe> to 100% with JavaScript?
+    </h3>
+   
+    <br><br>
+   
+    <button onclick="changeHeight()">
+        Click to change
+    </button>
+  
+    <script>
+      
+        // JavaScript code to change the
+        // height to 100% of <iframe>
+        function changeHeight() {
+            var x = document.getElementById('iframe');
+            x.style.height = "100%";
+            x.style.width = "50%";
+        }
+    </script>
+</body> 
+  
 </html>
-
-

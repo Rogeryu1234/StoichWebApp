@@ -85,11 +85,12 @@ body {
     /* background-color: purple; */
     padding: 10px;
     /* border: 5px solid black; */
-    width: 50%;
+    width: 40%;
     height: 600px;
     margin-top: 10px;
+    margin-left: 10%;
     overflow: auto;
-    margin-right: 5%;
+    margin-right: 0%;
     margin-bottom: 100px;
     /* position: absolute;
     right: 80px;
@@ -101,11 +102,11 @@ body {
     float: left;
     padding: 10px;
     /* border: 5px solid black; */
-    width: 40%;
+    width: 45%;
     height: 600px;
     margin-top: 10px;
     overflow: auto;
-    margin-right: 10px;
+    margin-right: 5px;
     margin-bottom: 100px;
     /* position: absolute;
     right: 80px;
@@ -139,4 +140,18 @@ h1 {
 
 #info:hover .infotext {
   visibility: visible;
+}
+
+#scaled-frame {
+  width: 1470px;
+  height: 1000px;
+  border: 0px;
+}
+
+#scaled-frame {
+  transform-origin: left top;
+  transform: scale(0.55);
+  margin-bottom:-450px;
+  margin-right:-2000px;
+  margin-left: 0px;
 }
