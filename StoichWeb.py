@@ -39,6 +39,8 @@ def login():
 
         # Detect if the user click the submit button.
         if request.form['GO'] == "Go!":
+            plot1 = ""
+            plot2 = ""
             Counts = np.zeros(118)
 
             # Obtain InputType
@@ -113,7 +115,10 @@ def login():
 
                 # import it and run it.
                 a = imp.load_source('AnalyzePhase', PhaseFile)
-                ReportStr3 = a.AnalyzePhase(AtPct, WtPct, OxWtPct, OByStoich)
+                if PhaseFile == "ConfigData/phase GEMS Comparison.py":
+                    ReportStr3, plot1, plot2 = a.AnalyzePhase(AtPct, WtPct, OxWtPct, OByStoich)
+                else:
+                    ReportStr3 = a.AnalyzePhase(AtPct, WtPct, OxWtPct, OByStoich)
             else:
                 ReportStr3 = ""
             
@@ -125,7 +130,10 @@ def login():
             FinalReport = FinalReport.replace(" ", "&nbsp;")
             
             # Generate webpage.
-            return render_template('result.html', mylist=Counts, absorption=DetectorFile, degree = Takeoff, density = AbsorptionCorrection, k_factor = kfacsfile, OByStoich = OByStoich, Result = FinalReport, inputType = inputType)
+            if plot1:
+                return render_template('result.html', mylist=Counts, absorption=DetectorFile, degree = Takeoff, density = AbsorptionCorrection, k_factor = kfacsfile, OByStoich = OByStoich, Result = FinalReport, inputType = inputType, fig1 = plot1, fig2 = plot2)
+            else:
+                return render_template('result.html', mylist=Counts, absorption=DetectorFile, degree = Takeoff, density = AbsorptionCorrection, k_factor = kfacsfile, OByStoich = OByStoich, Result = FinalReport, inputType = inputType)
     else:
         # Reload if no POST request received.
         return render_template('login.html')

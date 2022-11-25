@@ -51,8 +51,10 @@
 
     <div id="graphics">
       <div id="content">
-        <h2><p> Graphics(Preview)</p></h2>
-        <iframe width="600" height="600" src="plot" id="scaled-fram"></iframe>
+        <h2><p> Graphics</p></h2>
+        {% block graph %}
+        {% endblock %}
+        <!-- <iframe width="600" height="600" src="plot" id="scaled-fram"></iframe> -->
       </div>
     </div>
     </form>
