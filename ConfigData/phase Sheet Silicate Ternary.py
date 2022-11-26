@@ -1,13 +1,21 @@
 
 __author__ = 'Zack Gainsforth'
+__author2__ = 'Zhenbang Yu'
 __copyright__ = 'Copyright 2014, Zack Gainsforth'
+__copyright2__ = 'Copyright 2022, Zhenbang Yu'
 __email__ = 'zsg@gainsforth.com'
+__email2__ = 'roger_yu@berkeley.edu'
 
 import numpy as np
 if __name__ != '__main__':
     import PhysicsBasics as pb
 from ternary_diagram import TernaryDiagram
 import matplotlib.pyplot as plt
+import mpld3
+
+# Temporary Buffer for saving image
+import base64
+from io import BytesIO
 
 def norm(x):
     return x / np.sum(x)
@@ -33,11 +41,12 @@ def AnalyzePhase(AtPct=None, WtPct=None, OxWtPct=None, OByStoich=None):
     # Calculate the At% values of the octahedral, tetrahedral and interstitial atoms.
     OctAtPct = 0; TetAtPct = 0; InterAtPct = 0
     for Element in OctahedralAtoms:
-        OctAtPct += eval('AtPct[pb.%s-1]/AtPct[pb.O-1]*9'%Element)
+        #OctAtPct += eval('AtPct[pb.%s-1]/AtPct[pb.O-1]*9'%Element)
+        OctAtPct += eval('AtPct[pb.%s-1]'%Element)
     for Element in TetrahedralAtoms:
-        TetAtPct += eval('AtPct[pb.%s-1]/AtPct[pb.O-1]*9'%Element)
+        TetAtPct += eval('AtPct[pb.%s-1]'%Element)
     for Element in InterstitialAtoms:
-        InterAtPct += eval('AtPct[pb.%s-1]/AtPct[pb.O-1]*9'%Element)
+        InterAtPct += eval('AtPct[pb.%s-1]'%Element)
 
     # --------------- DIAGRAM 1 (Si+Al), Fe, Mg --------------- 
 
@@ -48,6 +57,9 @@ def AnalyzePhase(AtPct=None, WtPct=None, OxWtPct=None, OByStoich=None):
     CompoVector[2] = AtPct[pb.Mg-1]
     CompoVector /= np.sum(CompoVector)
 
+    # plt.figure(1)
+    # plt.cla()
+
     td = TernaryDiagram(['Si+Al', 'Fe', 'Mg'])
     # Draw serpentine and saponite boundary lines on the ternary.
     td.plot([norm([2,3,0]), norm([2,0,3])], color='green', linewidth=3, linestyle='dotted')
@@ -56,9 +68,17 @@ def AnalyzePhase(AtPct=None, WtPct=None, OxWtPct=None, OByStoich=None):
     td.annotate('Saponite', [norm([4,1.6,1.4])], ha='center', fontsize='large', color='royalblue')
     # Now mark the user's point.
     td.scatter([ CompoVector ], marker='X', s=300, alpha=0.7, color='orange') #, annotations=['Experimental'])
+    
+    # Save it to a temporary buffer.
+    buf = BytesIO()
+    td.fig.savefig(buf, format="png")
+    # Embed the result in the html output.
+    data = base64.b64encode(buf.getbuffer()).decode("ascii")
+    plot1 = f"<img src='data:image/png;base64,{data}'/>"
 
     # --------------- Tetrahedrals, Octahedrals, Interstitial --------------- 
-    plt.figure()
+    # plt.figure(2)
+    # plt.cla()
 
     # Calculate the Tetrahedrals, Octahedrals, Interstitial.
     # TMs = transition metals.
@@ -77,77 +97,51 @@ def AnalyzePhase(AtPct=None, WtPct=None, OxWtPct=None, OByStoich=None):
     # Now mark the user's point.
     td.scatter([ CompoVector ], marker='d', s=300, alpha=0.7, color='orange') #, annotations=['Experimental'])
 
+    # mpld3.save_html(td.fig, "Fig2.html")
 
-    plt.show()
+    # Save it to a temporary buffer.
+    buf = BytesIO()
+    td.fig.savefig(buf, format="png")
+    # Embed the result in the html output.
+    data = base64.b64encode(buf.getbuffer()).decode("ascii")
+    plot2 = f"<img src='data:image/png;base64,{data}'/>"
 
-    # # Compute how many cations in the Oct sites.
-    # Oct = sum(array([e for e in list(E.values())])) - E['O'] - E['H'] - E['Si'] - E['Al']
+    # plt.show()
 
-    # # Tet should be Si and Al.
-    # Tet = E['Si'] - E['Al']
 
-    # # Report the compositional ratios
-    # OutStr += 'Mg/(Mg+Fe) = %0.3f\n' % (E['Mg']/(E['Mg']+E['Fe']))
-    # OutStr += 'Al/(Al+Si) = %0.3f\n' % (E['Al']/(E['Al']+E['Si']))
-    # for e in KnownElements:
-    #     if e in ['H', 'O', 'Si', 'Al']:
-    #         continue
-    #     if E[e] != 0:
-    #         OutStr += e + '/(Octahedral) = %0.3f\n' % (E[e]/Oct)
+    OutStr += f'Tet/Oct atoms = {TetAtPct/OctAtPct:0.2f} \n'
+    OutStr += f'Tet/Oct atoms = 0.75 ideal\n\n'
 
-    # OutStr += '\n'
-    # OutStr += 'Octahedral atoms per 18 atoms:\n'
-    # OutStr += '{:>11s}:    {:<10s}\n'.format('Element', '#')
-    # CationSum = 0
-    # for ElName in KnownElements:
-    #     if (ElName in OctahedralAtoms) and (OriginalE[ElName] != 0):
-    #         CationSum += OriginalE[ElName]
-    #         if OriginalE[ElName] < 0.01:
-    #             # Handle ppm levels gracefully.
-    #             OutStr += '{:>11s}:    {:<1.3f}'.format(ElName, OriginalE[ElName])
-    #             OutStr += ', {:>11s}:    {:<4.0f} * 10^-6\n'.format(ElName, OriginalE[ElName]*1e6)
-    #         else:
-    #             OutStr += '{:>11s}:    {:<1.3f}\n'.format(ElName, OriginalE[ElName])
-    # OutStr += '{:>11s}:    {:<1.3f}\n'.format('Total Cats', CationSum)
-    # OutStr += 'Serpentine formula should have 3 octahedral atoms.\n'
+    OutStr += f'Tet + Oct + Interstitial atoms = {TetAtPct+OctAtPct+InterAtPct:0.2f} at%\n'
+    OutStr += f'O = {AtPct[pb.O-1]:0.2f} at%\n'
+    OutStr += f'Unaccounted non-H atoms (100%-Tet+Oct+Inter+O) = {100-(TetAtPct+OctAtPct+InterAtPct+AtPct[pb.O-1]):0.2f} at%\n\n'
 
-    # OutStr += '\n'
-    # OutStr += 'Tetrahedral atoms per 18 atoms:\n'
-    # OutStr += '{:>11s}:    {:<10s}\n'.format('Element', '#')
-    # CationSum = 0
-    # for ElName in KnownElements:
-    #     if (ElName in TetrahedralAtoms) and (OriginalE[ElName] != 0):
-    #         CationSum += OriginalE[ElName]
-    #         if OriginalE[ElName] < 0.01:
-    #             # Handle ppm levels gracefully.
-    #             OutStr += '{:>11s}:    {:<1.3f}'.format(ElName, OriginalE[ElName])
-    #             OutStr += ', {:>11s}:    {:<4.0f} * 10^-6\n'.format(ElName, OriginalE[ElName]*1e6)
-    #         else:
-    #             OutStr += '{:>11s}:    {:<1.3f}\n'.format(ElName, OriginalE[ElName])
-    # OutStr += '{:>11s}:    {:<1.3f}\n'.format('Total Cats', CationSum)
-    # OutStr += 'Serpentine formula should have 2 tetrahedral atoms.\n'
+    OutStr += f'Oxygen At\% for variable interstitial H2O:\n'
+    OxyIdeal = np.array([11,12,13,14,15,16])
+    CatIdeal = 7.25; 
+    # print(OxyIdeal/(CatIdeal+OxyIdeal)*100)
+    OutStr += f'O by stoichiometry on: {11/(CatIdeal+11)*100:0.2f} at%\n'
+    OutStr += f'O by stoichiometry off:\n'
+    for n in range(5):
+        OxyIdeal = 12+n 
+        OutStr += f'                {n} H2O: {OxyIdeal/(CatIdeal+OxyIdeal)*100:0.2f} at%\n'
+    OutStr += f'\n'
 
-    # OutStr += '\n'
-    # OutStr += 'Atoms per 18 atoms:\n'
-    # OutStr += '{:>11s}:    {:<10s}\n'.format('Element', '#')
-    # CationSum = 0
-    # for ElName in KnownElements:
-    #     if OriginalE[ElName] != 0:
-    #         CationSum += OriginalE[ElName]
-    #         if OriginalE[ElName] < 0.01:
-    #             # Handle ppm levels gracefully.
-    #             OutStr += '{:>11s}:    {:<1.3f}'.format(ElName, OriginalE[ElName])
-    #             OutStr += ', {:>11s}:    {:<4.0f} * 10^-6\n'.format(ElName, OriginalE[ElName]*1e6)
-    #         else:
-    #             OutStr += '{:>11s}:    {:<1.3f}\n'.format(ElName, OriginalE[ElName])
-    # OutStr += '{:>11s}:    {:<1.3f}\n'.format('Total Cats', CationSum)
-    # OutStr += 'Serpentine formula is Oct3 Tet2 O9 H4\n'
-    # OutStr += 'Serpentine formula is Oct3 Tet2 O5 OH4\n'
-    # OutStr += 'Tet is Al or Si, occasionally Fe can be included (not considered here)\n'
-    # OutStr += 'All other cations go in the octahedral sites.\n'
+    OutStr += f'The previous analysis assumes H is invisible and does not contribute to At%.\n'
+    OutStr += f'The ideal formula is:\n    Inter0.25 Oct3 Tet4 O10 (OH)2 nH20.\n'
+    OutStr += f'However, since H is not visible, the effective formula is:\n'
+    OutStr += f'    Inter0.25 Oct3 Tet4 O10 O2 nO\n'
+    OutStr += f"With Stoichiometry turned on, H2O doesn't contribute to O, and OH only contributes one half O to produce the formula:\n"
+    OutStr += f'    Inter0.25 Oct3 Tet4 O10 O\n'
 
-    return '' #OutStr
+    return OutStr, plot1, plot2
     
+def SaveResults(FileRoot):
+    plt.figure(1)
+    plt.savefig(FileRoot + '_Ternary_SiAl_Fe_Mg.png', dpi=300)
+    plt.figure(2)
+    plt.savefig(FileRoot + '_Ternary_Tet_Oct_Inter.png', dpi=300)
+
 if __name__ == '__main__':
 
     import imp
@@ -176,9 +170,9 @@ if __name__ == '__main__':
     # AtPct[pb.Mg-1] = 0.5*3
     # AtPct[pb.Na-1] = 0.7*0.3
     # AtPct[pb.Al-1] = 1
+
     # AtPct[pb.Si-1] = 3
     # AtPct[pb.Ca-1] = 0.5*0.3
     # AtPct[pb.Fe-1] = 0.3*3
     # print('Saponite: (Na0.5,Ca0.5)0.3 (Fe0.3,Mg0.7)3 (Si0.75,Al0.25)4 O10 (OH)2 4H2O:\n')
     # print(AnalyzePhase(AtPct))
-
