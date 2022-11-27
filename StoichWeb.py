@@ -108,16 +108,16 @@ def login():
             # Make it human readable.
             ReportStr2 = ReportResults.FormatQuantResults(Quant, ArbitraryAbsorptionCorrection=DetectorFile, AbsorptionCorrection=AbsorptionCorrection,Takeoff=Takeoff,OByStoichiometry=OByStoich,kFactors=kfacsfile)
 
-            # TODO: Add FIT PHASES Feature.
+            # TODO: Error Handling
 
             """ DO CUSTOM PHASE ANALYSES """
             if request.form.get("phaseAnalysis"):
                 # Construct the name of the py file containing the analysis function.
                 PhaseFile = request.form["phase"]
                 PhaseFile = 'ConfigData/phase ' + PhaseFile + '.py'
-
                 # import it and run it.
                 a = imp.load_source('AnalyzePhase', PhaseFile)
+                # Pass in different parameters based on the input.
                 if PhaseFile == "ConfigData/phase GEMS Comparison.py":
                     ReportStr3, Fig1, Fig2 = a.AnalyzePhase(AtPct, WtPct, OxWtPct, OByStoich)
                 elif PhaseFile == "ConfigData/phase Sheet Silicate Ternary.py":
@@ -143,10 +143,6 @@ def login():
     else:
         # Reload if no POST request received.
         return render_template('login.html')
-
-@app.route('/plot')
-def build_plot():
-    return render_template("a.html")
 
 # Run
 if __name__ == '__main__':

@@ -47,7 +47,7 @@ body {
   background-color: white;
 }
 
-#box1 {
+#element-list {
   float: left;
   /* background-color: blue; */
   padding: 10px;
@@ -64,7 +64,7 @@ body {
   /* min-width: 400px; */
 }
 
-#box2 {
+#input-list {
   float: left;
     /* background-color: blueviolet; */
     padding: 10px;
@@ -82,50 +82,50 @@ body {
     /* top: 68px; */
   }
 
-  #box3 {
-    float: left;
-    /* background-color: purple; */
-    padding: 10px;
-    /* border: 5px solid black; */
-    width: 40%;
-    height: 600px;
-    margin-top: 10px;
-    margin-left: 10%;
-    overflow: auto;
-    margin-right: 0%;
-    margin-bottom: 100px;
-    word-wrap: break-word;
-    /* position: absolute;
-    right: 80px;
-    top: 68px; */
-    overflow-x: scroll;
+#all-result {
+  float: left;
+  /* background-color: purple; */
+  padding: 10px;
+  /* border: 5px solid black; */
+  width: 40%;
+  height: 600px;
+  margin-top: 10px;
+  margin-left: 10%;
+  overflow: auto;
+  margin-right: 0%;
+  margin-bottom: 100px;
+  word-wrap: break-word;
+  /* position: absolute;
+  right: 80px;
+  top: 68px; */
+  overflow-x: scroll;
 
-    display: none;
+  display: none;
 
-    margin-left: 20%;
-    width: 60%;
-    text-align: center;
-  }
+  margin-left: 20%;
+  width: 60%;
+  text-align: center;
+}
 
-  #graphics {
-    float: left;
-    padding: 10px;
-    /* border: 5px solid black; */
-    width: 45%;
-    height: 600px;
-    margin-top: 10px;
-    overflow: auto;
-    margin-right: 5px;
-    margin-bottom: 100px;
-    /* position: absolute;
-    right: 80px;
-    top: 68px; */
+#graphics {
+  float: left;
+  padding: 10px;
+  /* border: 5px solid black; */
+  width: 45%;
+  height: 600px;
+  margin-top: 10px;
+  overflow: auto;
+  margin-right: 5px;
+  margin-bottom: 100px;
+  /* position: absolute;
+  right: 80px;
+  top: 68px; */
 
-    display: none;
-  }
+  display: none;
+}
 
 
-#content {
+#result-content {
   /* background-color: #90EE90; */
 }
 
