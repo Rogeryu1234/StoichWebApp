@@ -3,13 +3,26 @@
 
 {# This is a comment ---- Django template #}
 
+
 {% block content3 %}
     
     <tt>{{ Result | safe}}</tt>
+    <script>document.getElementById("box3").style.display = "block";</script>
     
 {% endblock %}
 
 {% block graph %}
+    {% if fig1 %}
+        <script>document.getElementById("graphics").style.display = "block";</script>
+        <script>
+            document.getElementById("box3").style.marginLeft = "10%";
+            document.getElementById("box3").style.width = "40%";
+            document.getElementById("box3").style.textAlign = "left";
+        </script>
+    {% else %}
+    // statements
+    {% endif %}
+
     {{fig1 | safe}}
     {{fig2 | safe}}
 {% endblock %}
