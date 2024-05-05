@@ -2,6 +2,12 @@ __author__ = 'Zhenbang Yu'
 __copyright__ = 'Copyright 2022, Zhenbang Yu'
 __email__ = 'roger_yu@berkeley.edu'
 
+
+# TODO: Implement Save Input
+# TODO: Implement Save Results
+# TODO: Implement Save All
+# TODO: Implement Open Input
+
 # import flask relevant packages.
 from flask import Flask, url_for, render_template, redirect, request
 
@@ -33,7 +39,6 @@ app = Flask(__name__)
 # Everything in here.
 @app.route('/', methods = ["POST","GET"])
 def login():
-    inputType = "Counts"
     if request.method == "POST":
         # Detect not identified POST requests.
         if 'GO' not in request.form:

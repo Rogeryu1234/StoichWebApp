@@ -1,5 +1,8 @@
 #StoichiometryFitter
 ====================
+COMMAND:
+
+flask --app StoichWeb.py run
 
 Read the [paper](https://github.com/ZGainsforth/StoichiometryFitter/blob/master/2016%20-%20M%26M%20-%20Stoichiometry%20Fitter.pdf) describing the software.
 

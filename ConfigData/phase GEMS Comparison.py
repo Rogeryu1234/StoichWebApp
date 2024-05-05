@@ -6,7 +6,6 @@ __copyright2__ = 'Copyright 2022 Zhenbang Yu'
 __email__ = 'zsg@gainsforth.com'
 __email2__ = 'roger_yu@berkeley.edu'
 
-import mpld3
 import matplotlib
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
